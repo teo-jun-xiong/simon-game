@@ -1,3 +1,6 @@
+alert("How to play: Click the buttons following the same sequence it flashes in. If the red button flashes for level 0, and the blue button flashes for level 1, the red button and then the blue button has to be pressed to pass the level, and go onto the next one");
+
+
 var hasStarted = false;
 var level = 0;
 
