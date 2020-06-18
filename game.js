@@ -3,6 +3,7 @@ alert("How to play: Click the buttons following the same sequence it flashes in.
 
 var hasStarted = false;
 var level = 0;
+var buttonsPressed = 0;
 
 var gamePattern = [];
 var userClickedPattern = [];
@@ -12,6 +13,7 @@ var buttonColors = ["red", "blue", "green", "yellow"];
 $(document).keypress(function(event) {
     if (!hasStarted) {
         hasStarted = true;
+        levelUp();
         nextSequence();
     }
 });
@@ -21,6 +23,7 @@ $(".btn").click(function(event) {
     if (hasStarted) {
         var userChosenColor = event.target.id;
         userClickedPattern.push(userChosenColor);
+        $("#count-title").text("Buttons pressed: " + userClickedPattern.length);
 
         playSound(userChosenColor);
         animatePress(userChosenColor);
@@ -55,12 +58,19 @@ function animatePress(color) {
 }
 
 function levelUp() {
-    $("h1").text("Level " + level++);
+    setTimeout(function() {
+        $("h1").text("Level " + ++level);
+    }, 1000);
+
     console.log("success");
 }
 
 function checkAnswer() {
     // If answer is correct, then level up and show the next button
+    setTimeout(function() {
+        $("#count-title").text("Button pressed: 0");
+    }, 1000);
+
     if (JSON.stringify(gamePattern) === JSON.stringify(userClickedPattern)) {
         levelUp();
         userClickedPattern = [];
@@ -74,6 +84,7 @@ function checkAnswer() {
         restartGame();
         console.log("fail");
     }
+
 }
 
 function restartGame() {
